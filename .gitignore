@@ -1,2 +1,13 @@
+# Obsidian 相关
+.obsidian/
 .DS_Store
 Thumbs.db
+*.trash/
+obsidian.css
+*.log
+
+# 编辑器配置
+.idea/
+.vscode/
+*.swp
+*~
