@@ -71,95 +71,20 @@ git_log: <!-- git-log: auto-generated during build -->
 复制以下代码到你的 Templater 模板文件最上方：
 
 ```javascript
-<%*
-// ---------------------------------------------------------------
-// 🌍 Amap (Gaode) Location & Weather Integration
-// ---------------------------------------------------------------
-// 配置高德地图 Key (Web服务类型)
-const AMAP_KEY = "你的高德API_KEY";
 
-let weatherData = {
-  region: "Unknown", city: "Unknown",
-  lon: 0, lat: 0,
-  temp: 0, wind: 0,
-  desc: "Unknown"
-};
-
-const getCentroid = (rect) => {
-    if(!rect) return null;
-    try {
-        const parts = rect.split(';');
-        if(parts.length===2) {
-            const [minLon, minLat] = parts[0].split(',').map(Number);
-            const [maxLon, maxLat] = parts[1].split(',').map(Number);
-            return { lat: (minLat+maxLat)/2, lon: (minLon+maxLon)/2 };
-        }
-    } catch(e) {}
-    return null;
-};
-
-try {
-    const { web } = tp;
-    
-    // 1. 获取高德地图定位
-    // 注意：高德 API 对 IPv6 支持不佳，如果处于 IPv6 环境可能返回空数据
-    const amapUrl = `https://restapi.amap.com/v3/ip?key=${AMAP_KEY}`;
-    const raw = await web.request(amapUrl);
-    const geo = JSON.parse(raw);
-    
-    if(geo && geo.status === "1") {
-        let lat, lon;
-        
-        // 计算矩形区域中心点
-        if(geo.rectangle && geo.rectangle.length > 0) {
-            const center = getCentroid(geo.rectangle);
-            if(center) { lat = center.lat; lon = center.lon; }
-        }
-        
-        // 处理位置名称
-        const prov = (typeof geo.province === 'string') ? geo.province : "";
-        const cty = (typeof geo.city === 'string') ? geo.city : "";
-        
-        weatherData.region = prov;
-        // 如果是直辖市，city 字段可能为空，用 province 填充
-        weatherData.city = (cty && cty !== "[]") ? cty : prov;
-        weatherData.lat = lat;
-        weatherData.lon = lon;
-
-        if (lat && lon) {
-            // 2. 获取天气 (Open-Meteo)
-            const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
-            const weatherRaw = await web.request(weatherUrl);
-            const weatherJson = JSON.parse(weatherRaw);
-            
-            if (weatherJson && weatherJson.current_weather) {
-                const cw = weatherJson.current_weather;
-                const codes = { 
-                    0:'晴朗', 1:'主要多云', 2:'多云', 3:'阴天', 45:'雾', 48:'霜雾',
-                    51:'毛毛雨', 61:'小雨', 63:'中雨', 65:'大雨', 80:'阵雨', 95:'雷暴' 
-                };
-                
-                weatherData.temp = cw.temperature;
-                weatherData.wind = cw.windspeed;
-                weatherData.desc = codes[cw.weathercode] || "未知";
-            }
-        }
-    }
-} catch (e) { console.error("Weather API Error:", e); }
-%>
 ```
 
 然后在 YAML Frontmatter 区域使用变量：
 
 ```yaml
 ---
-位置: <% weatherData.region %> - <% weatherData.city %>
+位置: Unknown - Unknown
 坐标: 
-  - <% weatherData.lon %>
-  - <% weatherData.lat %>
-温度: <% weatherData.temp %>℃ 
-风速: <% weatherData.wind %> m/s
-天气: <% weatherData.desc %>
+  - 0
+  - 0
+温度: 0℃ 
+风速: 0 m/s
+天气: Unknown
 ---
 ```
 
