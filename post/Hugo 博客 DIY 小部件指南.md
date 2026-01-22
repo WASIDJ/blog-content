@@ -1,5 +1,5 @@
 ---
-author: Ryou
+author: OpenCode
 title: Hugo 博客 DIY 小部件指南
 date: 2026-01-22
 description: 添加访客统计、文章热度、站点运行时间等自定义小部件
