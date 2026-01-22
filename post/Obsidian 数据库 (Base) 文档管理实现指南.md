@@ -361,13 +361,13 @@ ORDER BY Published DESC
 ## 发布统计
 - 总发布: 5 篇
 - 平均浏览: 48 次
-- 最热文章: "{{ highest_views }}"
+- 最热文章: "{{/* highest_views */}}"
 
 ## 分类分布
-{{ chart: category_distribution }}
+{{/* chart: category_distribution */}}
 
 ## 时间表
-{{ timeline: published_dates }}
+{{/* timeline: published_dates */}}
 ```
 
 ---

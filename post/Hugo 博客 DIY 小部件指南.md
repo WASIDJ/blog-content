@@ -112,12 +112,12 @@ tags:
 <!-- layouts/partials/article-stats.html -->
 
 <!-- 文章热度 - 基于 frontmatter 自定义字段 -->
-{{ with .Params.views }}
-  <div class="article-heat" title="浏览量: {{ . }}">
+{{/* with .Params.views */}}
+  <div class="article-heat" title="浏览量: {{/* . */}}">
     <span class="heat-icon">🔥</span>
-    <span class="heat-value">{{ . }}</span>
+    <span class="heat-value">{{/* . */}}</span>
   </div>
-{{ end }}
+{{/* end */}}
 ```
 
 #### Step 2: 创建热门文章列表
@@ -128,12 +128,12 @@ tags:
 <div class="widget hot-articles">
   <h3>🔥 热门文章</h3>
   <ul>
-    {{ range (where .Site.RegularPages ".Params.views" ">" 100) | first 5 }}
+    {{/* range (where .Site.RegularPages ".Params.views" ">" 100) | first 5 */}}
       <li>
-        <a href="{{ .Permalink }}">{{ .Title }}</a>
-        <span class="views">👁️ {{ .Params.views }}</span>
+        <a href="{{/* .Permalink */}}">{{/* .Title */}}</a>
+        <span class="views">👁️ {{/* .Params.views */}}</span>
       </li>
-    {{ end }}
+    {{/* end */}}
   </ul>
 </div>
 ```
@@ -250,8 +250,8 @@ views: 256  # 添加这个字段
 
 <div class="widget last-modified">
   <span class="label">最后更新</span>
-  <time datetime="{{ .Lastmod.Format "2006-01-02T15:04:05" }}">
-    {{ .Lastmod.Format "2006-01-02 15:04" }}
+  <time datetime="{{/* .Lastmod.Format "2006-01-02T15:04:05" */}}">
+    {{/* .Lastmod.Format "2006-01-02 15:04" */}}
   </time>
 </div>
 ```
@@ -291,19 +291,19 @@ views: 256  # 添加这个字段
 
 <aside class="sidebar">
   <!-- 访客统计 -->
-  {{ partial "visitor-stats.html" . }}
+  {{/* partial "visitor-stats.html" . */}}
   
   <!-- 运行时间 -->
-  {{ partial "uptime.html" . }}
+  {{/* partial "uptime.html" . */}}
   
   <!-- 热门文章 -->
-  {{ partial "hot-articles.html" . }}
+  {{/* partial "hot-articles.html" . */}}
   
   <!-- 文章信息 -->
   <div class="widget article-info">
-    {{ if .IsPage }}
-      {{ partial "last-modified.html" . }}
-    {{ end }}
+    {{/* if .IsPage */}}
+      {{/* partial "last-modified.html" . */}}
+    {{/* end */}}
   </div>
 </aside>
 ```

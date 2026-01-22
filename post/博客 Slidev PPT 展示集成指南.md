@@ -137,25 +137,25 @@ cp -r dist/ /path/to/hugo-main/static/presentations/my-presentation/
   
   <div class="presentations-list">
     <!-- 演示文稿卡片 -->
-    {{ range $.Site.Data.presentations }}
+    {{/*/ range $.Site.Data.presentations /*/}}
       <div class="presentation-card">
         <div class="presentation-header">
-          <h4>{{ .title }}</h4>
-          <span class="date">{{ .date }}</span>
+          <h4>{{/* .title */}}</h4>
+          <span class="date">{{/* .date */}}</span>
         </div>
         
-        <p class="description">{{ .description }}</p>
+        <p class="description">{{/* .description */}}</p>
         
         <div class="presentation-meta">
-          <span class="event">📍 {{ .event }}</span>
-          <span class="slides-count">{{ .slides }} 张</span>
+          <span class="event">📍 {{/* .event */}}</span>
+          <span class="slides-count">{{/* .slides */}} 张</span>
         </div>
         
-        <a href="{{ .url }}" class="btn-view" target="_blank">
+        <a href="{{/* .url */}}" class="btn-view" target="_blank">
           查看幻灯片 →
         </a>
       </div>
-    {{ end }}
+    {{/*/ end /*/}}
   </div>
 </div>
 
@@ -387,6 +387,7 @@ title = "演讲 & 展示"
 
 这里收集了我的所有公开演讲和技术分享。
 
+
 ```
 
 ### 创建单个演示页面
@@ -416,7 +417,7 @@ date = 2026-01-15
 
 ---
 
-{{% iframe src="/presentations/vue3-features/" style="width: 100%; height: 600px; border: none;" %}}
+
 ```
 
 ---
@@ -484,12 +485,12 @@ jobs:
             fi
           done
       
-      - name: Deploy to hugo-main
-        uses: peter-evans/repository-dispatch@v3
-        with:
-          token: ${{ secrets.GH_PAGE_ACTION_TOKEN }}
-          repository: WASIDJ/hugo-main
-          event-type: presentations-updated
+       - name: Deploy to hugo-main
+         uses: peter-evans/repository-dispatch@v3
+         with:
+           token: ${{/* secrets.GH_PAGE_ACTION_TOKEN */}}
+           repository: WASIDJ/hugo-main
+           event-type: presentations-updated
 ```
 
 ---
