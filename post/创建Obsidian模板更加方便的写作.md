@@ -4,10 +4,14 @@ title: 更加方便的创建Obsidian模板
 date: 2026-01-16 23:00:00
 lastmod: 2026-06-10 10:00:00
 description: Obsidian模板创建以及更加便捷的写作方式
-categories: ["Done"]
-tags: ["blog", "hugo", "obsidian"]
+categories:
+  - Done
+tags:
+  - blog
+  - hugo
+  - obsidian
 draft: false
-image: "https://cdn.jsdelivr.net/gh/wasidj/picBed@main/img/wechatQR.png"
+image: https://cdn.jsdelivr.net/gh/wasidj/picBed@main/img/wechatQR.png
 ---
 
 >[!task] 工作步骤
@@ -22,16 +26,17 @@ image: "https://cdn.jsdelivr.net/gh/wasidj/picBed@main/img/wechatQR.png"
 
 ## formatter Yaml
 
-| 字段 | 描述 |
-| ---- | ---- |
-|author| 作者名称 |
-|image| 文章封面图片链接 （需要随机返回heavenwall.cc）|
-|title| 文章标题 |
-|description| 文章描述 |
-|date| 文章创建日期 |
-|lastmod| 文章最后修改日期 |
-|categories| 文章分类 |
-|tags| 文章标签 |
+| 字段          | 描述                            |
+| ----------- | ----------------------------- |
+| author      | 作者名称 默认 ryou                  |
+| draft       | 是否公开，默认 true                  |
+| image       | 文章封面图片链接 （需要随机返回wallhaven.cc） |
+| title       | 文章标题                          |
+| description | 文章描述                          |
+| date        | 文章创建日期                        |
+| lastmod     | 文章最后修改日期                      |
+| categories  | 文章分类                          |
+| tags        | 文章标签                          |
 
 ---
 ## 参考资料
