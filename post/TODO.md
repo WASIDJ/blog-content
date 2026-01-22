@@ -6,7 +6,7 @@ description: 博客完善代办清单
 categories: ["TODO-LIST"]
 tags: ["blog", "hugo", "obsidian"]
 ---
-
+o
 ## 当前阶段需要完成
 1. [ ] 在OBSIDIAN中完成 formatter yaml 模板(添加 动态图片链接 更新时间)
 2. [x] 导入直接的域名 国内加速

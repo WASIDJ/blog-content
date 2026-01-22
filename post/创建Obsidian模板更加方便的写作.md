@@ -13,11 +13,10 @@ image: "https://cdn.jsdelivr.net/gh/wasidj/picBed@main/img/wechatQR.png"
 >[!task] 工作步骤
 >1. [ ] 在OBSIDIAN中完成 formatter yaml 模板(添加 动态图片链接 更新时间)
 >   - [x] 我的obsidian中的picgo插件为什么不自动生效？
->2. [ ] `crontab` 完成 每周/天 固定时间段
->3. [ ] 支持更多的markdown语法 
->4. [ ] 添加`formatter` 字段 天气 坐标 该文档的 `git log`
+>1. [x] `crontab` 完成 每周/天 固定时间段 `/home/ryou/scripts/auto_push_blog_content.sh`
+>2. [ ] 支持更多的markdown语法 
+>3. [ ] 添加`formatter` 字段 天气 坐标 该文档的 `git log`
 
-![](https://raw.githubusercontent.com/WASIDJ/picBed/main/img/20260120163517485.png)
 ## 前言
 在使用`Obsidian`进行写作时，模板的使用可以大大提高写作效率。本文将介绍如何创建和使用`Obsidian`模板，以便更加方便地进行写作。
 
@@ -36,3 +35,4 @@ image: "https://cdn.jsdelivr.net/gh/wasidj/picBed@main/img/wechatQR.png"
 
 ---
 ## 参考资料
+- 
