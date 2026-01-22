@@ -4,7 +4,6 @@ title: 博客完善代办清单
 date: 2026-01-16
 description: 博客完善代办清单
 categories: ["TODO-LIST"]
-mermaid: true
 tags: ["blog", "hugo", "obsidian"]
 ---
 
