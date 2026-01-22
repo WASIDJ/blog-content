@@ -10,15 +10,15 @@ tags: ["blog", "hugo", "obsidian"]
 
 ## 当前阶段需要完成
 1. [ ] 在OBSIDIAN中完成 formatter yaml 模板(添加 动态图片链接 更新时间)
-2. [ ] 导入直接的域名 国内加速
+2. [x] 导入直接的域名 国内加速
 3. [ ] 使用`Crontab` 完成 每周/天 固定时间段 更新（或者 ~~监控 draft 字段变化动态更新 ，消耗过大~~）
-4. [ ] 支持更多的markdown语法 
+4. [-] 支持更多的markdown语法 
 	1. [x] obsidian   callout 语法
 	2. [x] 支持mermaid
-	3. [ ] tikz
-5. [ ] 添加`formatte` 字段 天气 坐标 该文档的 `git log`
-6. [ ] 添加 DIY`widget` 
-7. [ ] 完成备份 在`hugo-main`
+	3. [ ] tikz hugo实现不了（hugo没有插件系统，无法做到部署前执行），直接截图吧 
+5. [ ] 添加`formatter` 字段 天气 坐标 该文档的 `git log`
+6. [ ] 添加 DIY`widget`  添加 访客统计 文章热度 站点运行时间等
+7. [x] 完成备份 在`hugo-main`
 8. [ ] 使用 obsidian中的 base 功能实现更加完善的 文档输出管理
 9. [ ] sidebar 添加 PPT 展示 `slidev` 打包生成的 PPT页面
 10. [ ] 完成基础的配置，就可以大写特写。
@@ -29,12 +29,16 @@ tags: ["blog", "hugo", "obsidian"]
 
 
 ### FQA
-1. [ ] hugo 打包 content中 md的规则是什么？ 看看源码？
+1. [x] hugo 打包 content中 md的规则是什么？ 看看源码？
 2. [ ] 我的 paginate 现在翻页 文章数量为什么没有生效？
 3. [ ] obsidian中的 base 数据库管理是否需要跟进？ 感觉不太必要
 
 ---
 ## 效果验证
+### 常见的markdown `yaml`字段
+```yaml
+
+```
 ### moreCode
 ```cpp
 // DFS for finding bridges in an undirected graph
@@ -124,7 +128,7 @@ int main() {
 
 > [!WARNING] Warning: This operation will delete all data
 
-## Foldable Admonitions
+#### Foldable Admonitions
 
 > [!NOTE]- Here are the details regarding API usage:
 >
@@ -134,12 +138,13 @@ int main() {
 
 > [!TIP]- Click here to view the tips
 
-## Nested Admonitions
+#### Nested Admonitions
 
 > [!question] Can admonitions be nested?
 > > [!todo] Yes!, they can.
 > > > [!example]  You can even use multiple layers of nesting.
 ### mermaid diagram
+- 需要添加 `mermaid: true` 到 yaml 头部
 ```mermaid
 graph TD
 	A[Start] --> B{Is it working?}
@@ -149,22 +154,31 @@ graph TD
 ```
 
 ### TikZ
-
-### code block
-```latex
-\documentclass{article}
+- 做不了放弃
+```tikz
+\documentclass{standalone}
 \usepackage{tikz}
 \begin{document}
 \begin{tikzpicture}
-  \draw (0,0) -- (4,0) -- (4,4) -- (0,4) -- cycle;
-  \draw (0,0) -- (4,4);
-  \draw (0,4) -- (4,0);
+	% Draw a rectangle
+	\draw (0,0) rectangle (4,2);
+	% Draw a circle
+	\draw (2,1) circle (0.5);
+	% Draw a line
+	\draw (0,0) -- (4,2);
 \end{tikzpicture}
 \end{document}
 ```
+<script type="text/tikz">
+\begin{tikzpicture}
+  \draw (0,0) circle (1);
+\end{tikzpicture}
+</script>
+
 
 ---
 ## 参考资料
 1. [Tikz](https://prinsss.github.io/graphics-with-tikz-in-hexo/#tldr)
-2. [mermaid配置](https://navendu.me/posts/adding-diagrams-to-your-hugo-blog-with-mermaid/?utm_source=chatgpt.com)
-3. [callout 语法](https://anthonyirwin.com/blog/tech/programming/hugo/setting-up-hugo-admonitions/)
+2. [hugo 中添加Tikz](https://enriqueacosta.github.io/blog/en/posts/creating-this-blog-part-4/)
+3. [mermaid配置](https://navendu.me/posts/adding-diagrams-to-your-hugo-blog-with-mermaid/?utm_source=chatgpt.com)
+4. [callout 语法](https://anthonyirwin.com/blog/tech/programming/hugo/setting-up-hugo-admonitions/)

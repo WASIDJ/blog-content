@@ -1,34 +1,51 @@
 ---
 title: 关于
-description: Hugo, the world's fastest framework for building websites
-date: '2019-02-28'
+description: 自我介绍
+date: '2026-01-19'
 aliases:
   - about-us
   - about-hugo
   - contact
 license: CC BY-NC-ND
-lastmod: '2020-10-09'
+lastmod: '2026-01-20'
 menu:
     main: 
         weight: -90
         params:
             icon: user
 ---
+> [!ABSTRUCT] 写在前面的话
+> 和很多卖彩票的人一样，万一我中了呢？个人博客也是一样，万一有人看呢？
+> 你说会不会有个美少女看我的博客，然后爱上我呢？所以，写博客吧，万一呢？
+> 显然这是扯淡，我们的互联网现在已经进入农奴时代，充斥着各种`slop`,写 个人 `blog` 无非就是证明人类的勇气，希望你在检索半天垃圾内容，看到我。可以释怀：这个世界还是有人类的，还是有人想当自由的野人的。对于我自己它的意义就只是一个墓碑而已，至少能掌握增自己的信息，然后愉快地慢慢死去吧。
 
-Written in Go, Hugo is an open source static site generator available under the [Apache License 2.0.](https://github.com/gohugoio/hugo/blob/master/LICENSE) Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.
 
-Hugo makes use of a variety of open source projects including:
+# 关于我
+CS专业，现在在上海五角场附近，比较孤僻，喜欢折腾各种技术栈，热衷于学习新技术。
+工作日固定 21:00~22:00 在附近散步，欢迎来找我 聊天。
+## 我的技能
 
-* https://github.com/yuin/goldmark
-* https://github.com/alecthomas/chroma
-* https://github.com/muesli/smartcrop
-* https://github.com/spf13/cobra
-* https://github.com/spf13/viper
+| 技能 | 描述 |
+| ---- | ---- |
+|git| 熟练使用Git进行版本控制，能够高效管理代码库和协作开发。 |
+|docker| 熟悉容器化技术，能够使用Docker进行应用部署和管理。 |
+|golang| 掌握Golang编程语言，能够开发高性能的后端服务和工具。 |
+|linux| 日常使用 `Arch linux`+ `hyprland`，热衷于`RICE`|
+|AI Infra| 熟悉AI基础设施搭建与维护，能够支持机器学习模型的训练和部署。 |
+|algorithm| 扎实的算法基础，能够解决复杂的编程问题和优化代码性能。 |
 
-Hugo is ideal for blogs, corporate websites, creative portfolios, online magazines, single page applications or even a website with thousands of pages.
+## 我的项目
+| 项目名称 | 描述 | 链接 |
+| -------- | ---- | ---- |
 
-Hugo is for people who want to hand code their own website without worrying about setting up complicated runtimes, dependencies and databases.
 
-Websites built with Hugo are extremely fast, secure and can be deployed anywhere including, AWS, GitHub Pages, Heroku, Netlify and any other hosting provider.
+## 联系我
 
-Learn more and contribute on [GitHub](https://github.com/gohugoio).
+| 方式 | 详情 |
+| ---- | ---- |
+| Email |qaqnoname@163.com|
+|wechat| wasidj |
+
+
+
+
