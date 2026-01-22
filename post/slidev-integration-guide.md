@@ -1,5 +1,5 @@
 ---
-author: Ryou
+author: OpenCode
 title: 博客 Slidev PPT 展示集成指南
 date: 2026-01-22
 description: 将 Slidev 生成的 PPT 展示集成到 Hugo 博客侧边栏
