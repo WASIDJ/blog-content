@@ -1,7 +1,7 @@
 ---
-author: OpenCode
+author: Ryou
 title: Hugo 博客 DIY 小部件指南
-date: 2026-01-22
+date: 2026-01-22T00:00:00Z
 description: 添加访客统计、文章热度、站点运行时间等自定义小部件
 categories:
   - 技术
@@ -10,6 +10,7 @@ tags:
   - widget
   - analytics
   - javascript
+lastmod: 2026-02-01T02:58:06Z
 ---
 
 # Hugo 博客 DIY 小部件指南

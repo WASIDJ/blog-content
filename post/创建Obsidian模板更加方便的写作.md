@@ -1,11 +1,11 @@
 ---
 author: Ryou
 title: 更加方便的创建Obsidian模板
-date: 2026-01-16 23:00:00
-lastmod: 2026-06-10 10:00:00
+date: 2026-01-16T23:00:00Z
+lastmod: 2026-02-01T03:01:47Z
 description: Obsidian模板创建以及更加便捷的写作方式
 categories:
-  - Done
+  - 技术
 tags:
   - blog
   - hugo

@@ -1,8 +1,8 @@
 ---
 author: Ryou
 title: zotero cheatsheet
-date: 2026-01-24 15:58:57
-lastmod: 2026-01-29 18:00:36
+date: 2026-01-24T15:58:57Z
+lastmod: 2026-01-29T18:00:36Z
 description: 
 draft: true
 image: https://w.wallhaven.cc/full/ml/wallhaven-mlzpj9.jpg

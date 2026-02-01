@@ -1,8 +1,8 @@
 ---
 author: Ryou
 title: tmux 使用教程
-date: 2026-01-30 14:44:27
-lastmod: 2026-02-01 00:46:15
+date: 2026-01-30T14:44:27Z
+lastmod: 2026-02-01T00:46:15Z
 description: 
 draft: true
 image: https://w.wallhaven.cc/full/vp/wallhaven-vpz9r5.jpg

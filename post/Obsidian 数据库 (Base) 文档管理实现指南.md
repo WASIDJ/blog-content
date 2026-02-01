@@ -1,7 +1,7 @@
 ---
-author: OpenCode
+author: Ryou
 title: Obsidian 数据库 (Base) 文档管理实现指南
-date: 2026-01-22
+date: 2026-01-22T00:00:00Z
 description: 使用 Obsidian Database 实现高级文档输出管理和追踪系统
 categories:
   - 技术
@@ -10,6 +10,7 @@ tags:
   - database
   - workflow
   - documentation
+lastmod: 2026-02-01T02:57:58Z
 ---
 
 # Obsidian Database 文档管理指南

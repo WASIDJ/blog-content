@@ -1,8 +1,8 @@
 ---
 author: Ryou
 title: dotfile备份1
-date: 2026-01-24 11:41:33
-lastmod: 
+date: 2026-01-24T11:41:33Z
+lastmod: 2026-02-01T02:58:14Z
 description: 
 draft: true
 image: https://w.wallhaven.cc/full/po/wallhaven-pol2om.jpg

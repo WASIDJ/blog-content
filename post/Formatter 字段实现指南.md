@@ -1,7 +1,7 @@
 ---
-author: OpenCode
+author: Ryou
 title: Formatter 字段实现指南
-date: 2026-01-22
+date: 2026-01-22T00:00:00Z
 description: 添加动态 formatter 字段到 YAML 前置的完整实现指南
 categories:
   - 技术
@@ -9,6 +9,7 @@ tags:
   - obsidian
   - template
   - hugo
+lastmod: 2026-02-01T03:00:44Z
 ---
 
 # Formatter 字段实现指南
