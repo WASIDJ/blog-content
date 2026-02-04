@@ -2,7 +2,7 @@
 author: Ryou
 title: 光速入门 OPENCODE
 date: 2026-02-04 21:04:57
-lastmod: 2026-02-04 21:29:36
+lastmod: 2026-02-04 22:19:41
 description:
 draft: false
 mermaid: true
@@ -15,7 +15,7 @@ image: https://w.wallhaven.cc/full/po/wallhaven-polllj.jpg
 风速: 5.1 m/s
 天气: 多云
 categories:
-  - 
+  - vibecode
 tags:
   -
 ---

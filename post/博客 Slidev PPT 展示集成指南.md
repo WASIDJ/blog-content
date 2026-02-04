@@ -10,7 +10,7 @@ tags:
   - slidev
   - presentations
   - integration
-lastmod: 2026-02-01T03:01:48Z
+lastmod: 2026-02-04 22:20:19
 ---
 
 # Slidev PPT 博客集成指南

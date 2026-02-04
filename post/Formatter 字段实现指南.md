@@ -9,7 +9,7 @@ tags:
   - obsidian
   - template
   - hugo
-lastmod: 2026-02-01T03:00:44Z
+lastmod: 2026-02-04 22:19:57
 ---
 
 # Formatter 字段实现指南
