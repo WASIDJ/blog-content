@@ -4,7 +4,6 @@ title: 光速入门 OPENCODE
 date: 2026-02-04 21:04:57
 lastmod: 2026-02-04 22:25:23
 description:
-draft: false
 mermaid: true
 image: https://w.wallhaven.cc/full/po/wallhaven-polllj.jpg
 位置: 上海市 - 上海市
