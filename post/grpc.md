@@ -2,7 +2,7 @@
 author: Ryou
 title: grpc
 date: 2026-02-03 13:11:24
-lastmod: 
+lastmod: 2026-02-04 21:04:18
 description: 
 draft: true
 mermaid: true
