@@ -1,8 +1,8 @@
 ---
 author: Ryou
 title: 光速入门 OPENCODE
-date: 2026-02-04 21:04:57
-lastmod: 2026-02-04 22:25:23
+date: 2026-02-04T21:04:57+08:00
+lastmod: 2026-02-04T22:53:37+08:00
 description:
 mermaid: true
 image: https://w.wallhaven.cc/full/po/wallhaven-polllj.jpg
