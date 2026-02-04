@@ -2,7 +2,7 @@
 author: Ryou
 title: 光速入门 OPENCODE
 date: 2026-02-04 21:04:57
-lastmod: 2026-02-04 22:19:41
+lastmod: 2026-02-04 22:25:23
 description:
 draft: false
 mermaid: true
