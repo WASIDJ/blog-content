@@ -2,7 +2,7 @@
 author: Ryou
 title: grpc常见的protoc命令行
 date: 2026-02-09T19:44:59+08:00
-lastmod:
+lastmod: 2026-02-10T16:16:57+08:00
 description:
 draft: false
 mermaid: true
