@@ -2,22 +2,24 @@
 author: Ryou
 title: go中使用prometheus
 date: 2026-02-10T16:37:51+08:00
-lastmod: 
-description: 
+lastmod:
+description:
 draft: true
 mermaid: true
 image: https://w.wallhaven.cc/full/5y/wallhaven-5yzpe5.jpg
 位置: 上海市 - 上海市
-坐标: 
+坐标:
   - 121.4768
   - 31.2243
-温度: 9.3℃ 
+温度: 9.3℃
 风速: 11.4 m/s
 天气: 阴天
 categories:
-  - 
+  - 云原生
+  - 监控系统
+  - 运维
 tags:
-  - 
+  - 学习门槛高
 ---
 # Prometheus 详解：云原生时代的监控利器
 
