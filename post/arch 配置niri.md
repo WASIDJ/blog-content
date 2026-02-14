@@ -2,7 +2,7 @@
 author: Ryou
 title: arch 配置niri
 date: 2026-02-13T14:45:28+08:00
-lastmod: 
+lastmod: 2026-02-13T19:10+08:00
 description: 
 draft: true
 mermaid: true
@@ -17,209 +17,649 @@ image: https://w.wallhaven.cc/full/rq/wallhaven-rqg6m7.jpg
 categories:
   - 
 tags:
-  - 
+  - 状态: 已安装，待配置 (2026-02-13)
 ---
-
-
->[!summary] 前情提要### 1. 背景与定义
-
-niri 是一款基于 **Wayland 协议**的现代窗口管理器，以其简洁的设计、高效的多任务处理能力和原生支持 Wayland 的特性而受到 Linux 桌面用户的欢迎。作为 Arch Linux 生态系统的一部分，niri 提供了高度可定制的工作流，适合追求轻量化与生产力的用户。
-
-* **核心特性**：采用图层管理（Layered Layout）、原生支持触摸手势、内置窗口动画、支持多显示器、配置基于 TOML 文件。
-* **与 X11 窗口管理器的区别**：niri 完全基于 Wayland 协议开发，无需 X11 兼容性层（XWayland 可选），提供更优的渲染性能和安全性。
-
----
-
-### 2. 安装与依赖准备
-
-#### 2.1 系统要求
-- **Arch Linux 或 Arch 系发行版**：确保系统已更新到最新状态（`pacman -Syu`）。
-- **Wayland 会话支持**：需要安装 Wayland 相关依赖（如 `wayland`、`wayland-protocols`）。
-- **显示服务器**：建议使用 `wlroots` 作为后端（niri 基于 wlroots 开发）。
-
-#### 2.2 安装步骤
-1. **启用 Arch User Repository (AUR)**：
-   - 使用 `yay`、`paru` 或 `trizen` 等 AUR 助手。
-   - 安装 `niri` 包：`yay -S niri` 或 `paru -S niri`。
-2. **验证安装**：安装完成后，运行 `niri --version` 检查版本信息。
-
-#### 2.3 依赖清单
-| 依赖名称 | 功能说明 |
-|---------|----------|
-| [wlroots](https://github.com/swaywm/wlroots) | Wayland 合成器基础库 |
-| [wayland](https://wayland.freedesktop.org/) | Wayland 显示服务器协议 |
-| [wayland-protocols](https://gitlab.freedesktop.org/wayland/wayland-protocols) | Wayland 协议扩展 |
-| [xwayland](https://xorg.freedesktop.org/wiki/Projects/Xwayland/) | X11 应用程序兼容性层（可选） |
+- 我感觉我不想用 hyprland了
+> [!warning] 状态更新
+> **niri 25.11 已安装，用户使用 hyprland。正在测试和配置阶段。**
+>
+> ---
+>
+> ### 卸载记录
+> - **配置文件位置**: `~/.config/niri/` (已删除)
+> - **Wayland 会话**: `/usr/share/wayland-sessions/niri.desktop` (需手动 sudo rm 删除)
+> - **用户服务**: niri 无独立 systemd 服务
 
 ---
 
-### 3. 基本配置流程
+## 快速开始 (基于当前 Hyprland 配置迁移)
 
-#### 3.1 初始化配置文件
-- niri 的配置文件位于 `~/.config/niri/config.toml`（首次运行时自动生成）。
-- 配置文件结构采用 TOML 格式，包含**全局设置**、**键盘绑定**、**工作区配置**和**窗口规则**等部分。
+### 1. 安装 niri
 
-#### 3.2 核心配置项
-```toml
-# 全局设置
-[global]
-# 是否启用触摸手势
-enable_touch_gestures = true
-# 是否显示状态栏
-show_top_bar = true
-# 背景图像路径
-wallpaper = "/path/to/your/wallpaper.jpg"
+```bash
+# 使用 AUR 助手安装
+yay -S niri
 
-# 工作区配置
-[workspaces]
-# 定义 10 个工作区
-count = 10
-# 工作区名称
-names = ["1: Code", "2: Browser", "3: Terminal", "4: Design", "5: Music"]
+# 或使用 paru
+paru -S niri
+```
 
-# 键盘绑定
-[keybindings]
-# 启动终端：Super+Enter
-"Super+Enter" = "spawn alacritty"
-# 打开应用启动器：Super+D
-"Super+D" = "spawn wofi --show drun"
-# 移动窗口到工作区：Super+Shift+数字
-"Super+Shift+1" = "move_workspace 1"
+### 2. 创建配置文件
+
+```bash
+mkdir -p ~/.config/niri
+niri --config ~/.config/niri/config.kdl  # 首次运行生成默认配置
+```
+
+### 3. 迁移配置 (基于你当前的 Hyprland 配置)
+
+> 以下配置基于你当前的 Hyprland 设置迁移
+
+```kdl
+// ~/.config/niri/config.kdl
+
+// ========== 环境变量 (来自 hyprland/env.conf) ==========
+environment {
+    XDG_CURRENT_DESKTOP "niri"
+    XDG_SESSION_DESKTOP "niri"
+    XDG_SESSION_TYPE "wayland"
+    QT_QPA_PLATFORM "wayland;xcb"
+    QT_QPA_PLATFORMTHEME "qt5ct"
+    GBM_BACKEND "nvidia-drm"
+    __GLX_VENDOR_LIBRARY_NAME "nvidia"
+    WLR_NO_HARDWARE_CURSORS "1"
+    LIBVA_DRIVER_NAME "nvidia"
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    CLUTTER_BACKEND "wayland"
+    XDG_BACKEND "wayland"
+    GDK_BACKEND "wayland,x11"
+    SDL_VIDEODRIVER "wayland"
+    _JAVA_AWT_WM_NONREPARENTING "1"
+}
+
+// ========== 输入配置 (来自 hyprland/input.conf) ==========
+input {
+    keyboard {
+        xkb {
+            layout "us"
+            variant ""
+            options "compose:ralt"
+        }
+        repeat-rate 40
+        repeat-delay 400
+    }
+    touchpad {
+        tap
+        natural-scroll
+        dwt
+    }
+    mouse {
+        accel-profile "flat"
+    }
+}
+
+// ========== 显示器配置 (来自 hyprland/monitors.conf) ==========
+// 运行 niri-msg outputs 查看显示器名称
+// 输出示例: DP-1, HDMI-A-1, eDP-1
+// 
+// 主显示器配置 (1920x1080@60Hz):
+// output "DP-1" {
+//     mode 1920x1080@60
+//     position x=0 y=0
+//     scale 1.0
+//     primary true
+// }
+
+// 副显示器配置 (右侧):
+// output "HDMI-A-1" {
+//     mode 1920x1080@60
+//     position x=1920 y=0
+//     scale 1.0
+// }
+
+// 笔记本内置显示器:
+// output "eDP-1" {
+//     scale 2.0
+// }
+
+// ========== 游标配置 ==========
+cursor {
+    xcursor-theme "Bibata-Modern-Classic"
+    xcursor-size 24
+    hide-when-typing true
+}
+
+// ========== 布局配置 (来自 hyprland/general.conf) ==========
+layout {
+    gaps 10
+    gaps-inner 5
+    gaps-outer 5
+    
+    // 边框宽度
+    border-size 2
+    
+    // 焦点边框颜色
+    focus-ring {
+        width 2
+        active-color 61 174 233 255  // 蓝色 (#3daee9)
+        inactive-color 77 77 77 255  // 灰色
+    }
+}
+
+// ========== 窗口规则 (来自 hyprland/rules.conf) ==========
+// niri 使用 window-rule {} 块
+
+// Firefox 始终最大化
+// window-rule {
+//     app-id "firefox"
+//     initial-state "maximized"
+// }
+
+// ========== 键盘绑定 (来自 hyprland/keybinds.conf) ==========
+// niri 使用 binds {} 块，格式: "Modifiers+Key" { action }
+
+// 基础操作
+binds {
+    // 退出: Super + Shift + Q
+    "Super+Shift+Q" { quit skip-confirmation=true }
+    
+    // 关闭窗口: Super + Q
+    "Super+Q" { close }
+    
+    // 最大化: Super + M
+    "Super+M" { toggle-fullscreen }
+    
+    // 切换浮动: Super + Space
+    "Super+Space" { toggle-floating }
+    
+    // 窗口居中: Super + J
+    "Super+J" { center }
+    
+    // 焦点移动
+    "Super+Left" { focus left }
+    "Super+Right" { focus right }
+    "Super+Up" { focus up }
+    "Super+Down" { focus down }
+    
+    // 窗口移动
+    "Super+Shift+Left" { move left }
+    "Super+Shift+Right" { move right }
+    "Super+Shift+Up" { move up }
+    "Super+Shift+Down" { move down }
+    
+    // 工作区切换
+    "Super+1" { workspace 1 }
+    "Super+2" { workspace 2 }
+    "Super+3" { workspace 3 }
+    "Super+4" { workspace 4 }
+    "Super+5" { workspace 5 }
+    "Super+6" { workspace 6 }
+    "Super+7" { workspace 7 }
+    "Super+8" { workspace 8 }
+    "Super+9" { workspace 9 }
+    "Super+0" { workspace 10 }
+    
+    // 移动到工作区
+    "Super+Shift+1" { move-to-workspace 1 }
+    "Super+Shift+2" { move-to-workspace 2 }
+    "Super+Shift+3" { move-to-workspace 3 }
+    "Super+Shift+4" { move-to-workspace 4 }
+    "Super+Shift+5" { move-to-workspace 5 }
+    "Super+Shift+6" { move-to-workspace 6 }
+    "Super+Shift+7" { move-to-workspace 7 }
+    "Super+Shift+8" { move-to-workspace 8 }
+    "Super+Shift+9" { move-to-workspace 9 }
+    "Super+Shift+0" { move-to-workspace 10 }
+    
+    // 显示器间移动
+    "Super+Ctrl+Left" { focus-monitor left }
+    "Super+Ctrl+Right" { focus-monitor right }
+    "Super+Ctrl+Shift+Left" { move-to-monitor left }
+    "Super+Ctrl+Shift+Right" { move-to-monitor right }
+    
+    // 调整窗口大小
+    "Super+Alt+Left" { resize-window left -10% }
+    "Super+Alt+Right" { resize-window right +10% }
+    "Super+Alt+Up" { resize-window up -10% }
+    "Super+Alt+Down" { resize-window down +10% }
+    
+    // 截图 (使用 grim)
+    "Print" { spawn "grim -g \"$(slurp)\" - | wl-copy" }
+    "Super+Print" { spawn "grim - | wl-copy" }
+    "Shift+Print" { spawn "grim -g \"$(slurp)\" ~/Pictures/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png" }
+}
+
+// ========== 应用启动 (来自 hyprland/execs.conf) ==========
+
+// 启动应用
+binds {
+    // 终端: Super + Return
+    "Super+Return" { spawn "alacritty" }
+    
+    // 应用启动器: Super + D
+    "Super+D" { spawn "wofi --show drun" }
+    
+    // 文件管理器: Super + E
+    "Super+E" { spawn "dolphin" }
+    
+    // 浏览器: Super + W
+    "Super+W" { spawn "firefox" }
+    
+    // 编辑器: Super + C
+    "Super+C" { spawn "code" }
+    
+    // 设置: Super + I
+    "Super+I" { spawn "systemsettings" }
+    
+    // 音量控制: Super + V
+    "Super+V" { spawn "pavucontrol" }
+}
+
+// ========== 启动时运行的服务 (来自 hyprland/execs.conf) ==========
+spawn-at-startup "waybar"
+spawn-at-startup "wofi --show dock"
+spawn-at-startup "hypridle"
+spawn-at-startup "dbus-update-activation-environment --all"
+spawn-at-startup "easyeffects --hide-window --service-mode"
+spawn-at-startup "wl-paste --type text --watch bash -c 'cliphist store'"
+spawn-at-startup "wl-paste --type image --watch bash -c 'cliphist store'"
+
+// ========== 锁屏 (来自 hyprland/hyprlock.conf) ==========
+// 使用 hyprlock 或 swaylock
+binds {
+    "Super+L" { spawn "swaylock -f" }
+}
+
+// ========== 截图配置 ==========
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+// ========== 通知配置 ==========
+config-notification {
+    disable-failed
+}
+
+// ========== 热点角 (关闭) ==========
+gestures {
+    hot-corners {
+        off
+    }
+}
+
+// ========== 待机配置 (来自 hyprland/hypridle.conf) ==========
+switch-events {
+    lid-close { spawn "swaylock -f" }
+}
+```
+
+### 4. 创建 Wayland 会话
+
+```bash
+# 需要 root 权限
+sudo tee /usr/share/wayland-sessions/niri.desktop > /dev/null << 'EOF'
+[Desktop Entry]
+Name=niri
+Comment=A modern Wayland scrollable tiling compositor
+Exec=niri
+Type=Application
+Keywords=wayland;compositor;tiling;
+EOF
+```
+
+### 5. 验证配置
+
+```bash
+# 检查配置语法
+niri validate
+
+# 如果配置正确，重新加载配置
+# 在 niri 内运行: Super + Alt + R 或
+niri-msg reload
 ```
 
 ---
 
-### 4. 启动与会话管理
+## 常用命令
 
-#### 4.1 创建 Wayland 会话入口
-1. 在 `/usr/share/wayland-sessions/` 目录下创建 `niri.desktop` 文件：
-   ```ini
-   [Desktop Entry]
-   Name=niri
-   Comment=A modern Wayland compositor
-   Exec=niri
-   Type=Application
-   Keywords=wayland;compositor;
-   ```
-2. 确保文件权限正确：`chmod +x /usr/share/wayland-sessions/niri.desktop`。
-
-#### 4.2 启动方式
-- **图形登录管理器**：在 GDM、SDDM 或 LightDM 中选择 "niri" 会话。
-- **命令行启动**：在 TTY 中运行 `niri` 直接进入会话。
+| 功能 | 命令 |
+|------|------|
+| 验证配置 | `niri validate` |
+| 重新加载 | `niri-msg reload` |
+| 查看输出 | `niri-msg outputs` |
+| 查看工作区 | `niri-msg workspaces` |
+| 退出 niri | `niri-msg quit` |
 
 ---
 
-### 5. 核心功能配置与调优
+## 配置文件结构参考
 
-#### 5.1 窗口与布局管理
-```toml
-# 窗口规则示例：指定应用程序的默认工作区
-[window_rules]
-# VS Code 始终打开在工作区 1
-[[window_rules.rule]]
-app_id = "code-oss"
-workspace = 1
-# 浏览器窗口最大化显示
-[[window_rules.rule]]
-app_id = "firefox"
-initial_state = "maximized"
-
-# 图层布局配置
-[layered_layout]
-# 主窗口占比（默认 60%）
-main_ratio = 0.6
-# 次要窗口占比（默认 40%）
-secondary_ratio = 0.4
-# 是否启用窗口快照预览
-enable_snapshots = true
+```
+~/.config/niri/
+├── config.kdl           # 主配置文件
+├── binds.kdl           # 键盘绑定 (使用 include)
+├── layout.kdl          # 布局配置
+└── window-rules.kdl    # 窗口规则
 ```
 
-#### 5.2 键盘与触摸手势
-```toml
-# 触摸手势配置
-[gestures]
-# 三指上滑：显示工作区概览
-three_finger_swipe_up = "toggle_overview"
-# 四指上滑：切换全屏
-four_finger_swipe_up = "toggle_fullscreen"
+### 使用 include 分离配置
 
-# 自定义键盘绑定
-[keybindings]
-# 移动窗口到上/下/左/右：Super+Shift+方向键
-"Super+Shift+Up" = "move_window up"
-"Super+Shift+Down" = "move_window down"
-"Super+Shift+Left" = "move_window left"
-"Super+Shift+Right" = "move_window right"
-# 调整窗口大小：Super+Ctrl+方向键
-"Super+Ctrl+Up" = "resize_window up"
+```kdl
+// 在 config.kdl 中
+include "binds.kdl"
+include "layout.kdl"
+include "window-rules.kdl"
 ```
 
 ---
 
-### 6. 集成与高级用法
+## 故障排查
 
-#### 6.1 状态栏与通知
-- **推荐状态栏**：使用 `waybar` 或 `ags`（Aylur's Widgets）作为 niri 的状态栏。
-  - 配置方式：在 `~/.config/waybar/config` 中添加 niri 支持的模块。
-- **通知系统**：使用 `mako` 或 `dunst`（需要 XWayland 支持）。
+```bash
+# 查看日志
+journalctl -f -u niri
 
-#### 6.2 主题与外观
-- **GTK 主题**：使用 `gsettings` 或 `nwg-look` 配置 GTK 应用程序的主题。
-- **光标主题**：通过 `XcursorTheme` 环境变量指定（如 `export XcursorTheme=Bibata-Modern-Ice`）。
-
-#### 6.3 多显示器配置
-```toml
-[monitors]
-# 主显示器：DP-1
-[[monitors.monitor]]
-name = "DP-1"
-primary = true
-scale = 1.0
-# 副显示器：HDMI-A-1（右侧）
-[[monitors.monitor]]
-name = "HDMI-A-1"
-position = "right_of DP-1"
-scale = 1.5
+# 或在 tty 中直接运行查看错误
+niri
 ```
 
 ---
 
-### 7. 常见问题与调试
+> **提示**: 此配置基于你当前的 Hyprland 设置迁移。实际使用前请根据你的硬件调整显示器名称和分辨率。
 
-#### 7.1 问题排查流程
-```mermaid
-flowchart TD
-    A["问题现象"] --> B["查看日志"]
-    B --> C{日志位置}
-    C -->|系统日志| D["journalctl -xe --unit=niri"]
-    C -->|会话日志| E["~/.cache/niri/niri.log"]
-    D --> F["识别错误信息"]
-    E --> F
-    F --> G["检查配置文件语法"]
-    G --> H["修复并重启 niri"]
+---
+
+## 迁移指南：基于 end-4 dots-hyprland + Quickshell
+
+### 当前环境分析
+
+| 组件 | Hyprland 配置 | Niri 需要 |
+|------|--------------|----------|
+| **窗口管理器** | Hyprland | Niri (scrollable tiling) |
+| **状态栏** | Quickshell (ii) | Quickshell (需适配) |
+| **锁屏** | hyprlock | hyprlock/swaylock |
+| **剪贴板** | cliphist + QS | cliphist + QS |
+| **音频** | easyeffects | easyeffects |
+| **输入法** | fcitx5 | fcitx5 |
+
+### 迁移步骤
+
+#### Step 1: 备份当前配置（可选）
+
+```bash
+# 备份现有 niri 配置（如有）
+cp -r ~/.config/niri ~/.config/niri.backup.$(date +%Y%m%d)
 ```
 
-#### 7.2 典型问题与解决方案
-- **无法启动**：检查 `/usr/share/wayland-sessions/niri.desktop` 文件是否正确。
-- **窗口闪烁**：调整显卡驱动配置（如 NVIDIA 驱动需要启用 DRM 内核模式设置）。
-- **触摸手势失效**：检查 `libinput` 驱动是否正常加载。
+#### Step 2: 生成 Niri 默认配置
+
+```bash
+# 运行 niri 生成默认配置
+niri --config ~/.config/niri/config.kdl
+# 立即退出（Ctrl+C）
+```
+
+#### Step 3: 创建 Quickshell Niri 配置
+
+你的 QS 配置位于 `~/.config/quickshell/ii/`。Niri 需要单独的配置：
+
+```bash
+# 创建 Niri QS 配置目录
+mkdir -p ~/.config/quickshell/niri
+
+# 复制 ii 配置作为基础
+cp -r ~/.config/quickshell/ii/* ~/.config/quickshell/niri/
+
+# 修改 shell.qml 中的标识
+# 将 "ii" 改为 "niri"
+sed -i 's/ii/niri/g' ~/.config/quickshell/niri/shell.qml
+```
+
+> **注意**: 需要修改 QS 配置中的 workspace 名称和工作区逻辑，因为 Niri 的工作区概念与 Hyprland 不同。
+
+#### Step 4: 关键配置差异
+
+| Hyprland | Niri | 说明 |
+|----------|------|------|
+| `$qsConfig = ii` | `$qsConfig = niri` | QS 配置名 |
+| `Mod+Return` | `Super+Return` | Niri 使用 Super |
+| `hyprland.conf` | `config.kdl` | 配置文件格式 |
+| `exec-once` | `spawn-at-startup` | 启动项 |
+| `windowrule` | `window-rule` | 窗口规则 |
+| `workspace` | 动态工作区 | Niri 工作区无限滚动 |
+
+#### Step 5: Niri 配置模板（适配你的 Hyprland）
+
+```kdl
+// ~/.config/niri/config.kdl
+
+// ========== 环境变量 ==========
+environment {
+    XDG_CURRENT_DESKTOP "niri"
+    XDG_SESSION_DESKTOP "niri"
+    XDG_SESSION_TYPE "wayland"
+    QT_QPA_PLATFORM "wayland;xcb"
+    QT_QPA_PLATFORMTHEME "qt5ct"
+    GBMvidia-drm"
+_BACKEND "n    __GLX_VENDOR_LIBRARY_NAME "nvidia"
+    LIBVA_DRIVER_NAME "nvidia"
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    _JAVA_AWT_WM_NONREPARENTING "1"
+}
+
+// ========== 输入配置来自 (你的 Hyprland) ==========
+input {
+    keyboard {
+        xkb {
+            layout "us"
+            options "compose:ralt"
+        }
+        repeat-rate 40
+        repeat-delay 400
+        numlock
+    }
+    touchpad {
+        tap
+        natural-scroll
+        dwt
+    }
+    mouse {
+        accel-profile "flat"
+    }
+}
+
+// ========== 游标 (来自你的 Hyprland) ==========
+cursor {
+    xcursor-theme "Bibata-Modern-Classic"
+    xcursor-size 24
+    hide-when-typing true
+}
+
+// ========== 布局 (紧凑风格，匹配你的 Hyprland) ==========
+layout {
+    gaps 8
+    
+    focus-ring {
+        width 2
+        active-color "#3daee9"
+        inactive-color "#4d4d4d"
+    }
+}
+
+// ========== Quickshell 启动 (关键差异) ==========
+// 使用 niri 配置而非 ii
+spawn-at-startup "qs" "-c" "niri"
+
+// ========== 其他服务 (来自你的 Hyprland) ==========
+spawn-at-startup "gnome-keyring-daemon" "--start" "--components=secrets"
+spawn-at-startup "hypridle"
+spawn-at-startup "dbus-update-activation-environment" "--all"
+spawn-at-startup "easyeffects" "--hide-window" "--service-mode"
+
+// 剪贴板 (不使用 QS 更新以避免冲突)
+// 注意：Niri 下 cliphist 更新可能不同
+spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
+spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"
+
+// ========== 键盘绑定 (基于你的 Hyprland) ==========
+binds {
+    // === 应用启动 ===
+    "Super+Return" { spawn "alacritty"; }
+    "Super+D" { spawn "qs" "-c" "niri" "ipc" "call" "appLauncher" "toggle"; }
+    "Super+E" { spawn "dolphin"; }
+    "Super+W" { spawn "firefox"; }
+    "Super+C" { spawn "code"; }
+    "Super+I" { spawn "qs" "-c" "niri" "ipc" "call" "settings" "toggle"; }
+    "Super+V" { spawn "pavucontrol"; }
+    
+    // === 窗口管理 ===
+    "Super+Q" { close-window; }
+    "Super+M" { maximize-column; }
+    "Super+F" { fullscreen-window; }
+    "Super+V" { toggle-window-floating; }
+    "Super+Space" { toggle-column-tabbed-display; }
+    "Super+T" { spawn "alacritty"; }
+    "Super+Tab" { focus-workspace-down; }
+    "Super+Shift+Tab" { focus-workspace-up; }
+    
+    // === 工作区 (与 Hyprland 相同) ===
+    "Super+1" { focus-workspace 1; }
+    "Super+2" { focus-workspace 2; }
+    "Super+3" { focus-workspace 3; }
+    "Super+4" { focus-workspace 4; }
+    "Super+5" { focus-workspace 5; }
+    "Super+6" { focus-workspace 6; }
+    "Super+7" { focus-workspace 7; }
+    "Super+8" { focus-workspace 8; }
+    "Super+9" { focus-workspace 9; }
+    "Super+0" { focus-workspace 10; }
+    
+    // === 移动到工作区 ===
+    "Super+Shift+1" { move-column-to-workspace 1; }
+    "Super+Shift+2" { move-column-to-workspace 2; }
+    "Super+Shift+3" { move-column-to-workspace 3; }
+    "Super+Shift+4" { move-column-to-workspace 4; }
+    "Super+Shift+5" { move-column-to-workspace 5; }
+    "Super+Shift+6" { move-column-to-workspace 6; }
+    "Super+Shift+7" { move-column-to-workspace 7; }
+    "Super+Shift+8" { move-column-to-workspace 8; }
+    "Super+Shift+9" { move-column-to-workspace 9; }
+    "Super+Shift+0" { move-column-to-workspace 10; }
+    
+    // === 焦点移动 (Vim 风格) ===
+    "Super+H" { focus-column-left; }
+    "Super+J" { focus-window-down; }
+    "Super+K" { focus-window-up; }
+    "Super+L" { focus-column-right; }
+    
+    // === 窗口移动 ===
+    "Super+Ctrl+H" { move-column-left; }
+    "Super+Ctrl+J" { move-window-down; }
+    "Super+Ctrl+K" { move-window-up; }
+    "Super+Ctrl+L" { move-column-right; }
+    
+    // === 显示器切换 ===
+    "Super+Left" { focus-monitor-left; }
+    "Super+Right" { focus-monitor-right; }
+    "Super+Shift+Left" { move-column-to-monitor-left; }
+    "Super+Shift+Right" { move-column-to-monitor-right; }
+    
+    // === 锁屏 ===
+    "Super+L" { spawn "hyprlock"; }
+    
+    // === 截图 (与 Hyprland 相同) ===
+    "Print" { spawn "hyprctl keyword animation \"1\" 0"; }  # 需适配
+    "Super+Print" { spawn "grim -g \"$(slurp)\" - | wl-copy"; }
+    "Shift+Print" { spawn "grim - | wl-copy"; }
+    
+    // === 退出 ===
+    "Super+Shift+E" { quit skip-confirmation=true; }
+}
+
+// ========== 窗口规则 (来自你的 Hyprland) ==========
+window-rule {
+    match app-id=r#"^firefox$"#
+    initial-state "maximized"
+}
+
+window-rule {
+    match app-id=r#"^code-oss$"#
+    initial-state "maximized"
+}
+
+// ========== 截图配置 ==========
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+// ========== 通知配置 ==========
+config-notification {
+    disable-failed
+}
+
+// ========== 手势 ==========
+gestures {
+    hot-corners {
+        off
+    }
+}
+```
+
+#### Step 6: Quickshell 配置适配
+
+Niri 下 QS 需要注意的问题：
+
+1. **工作区逻辑**: Niri 使用动态工作区，QS 的 workspace 模块需要适配
+2. **IPC 路径**: Niri 使用不同的 socket 路径
+3. **窗口焦点**: Niri 的焦点跟踪方式不同
+
+参考配置: https://github.com/imiric/quickshell-niri
+
+#### Step 7: 测试与验证
+
+```bash
+# 1. 验证配置语法
+niri validate
+
+# 2. 在 winit 窗口模式测试
+niri
+
+# 3. 如需重新加载（窗口模式下无效，需在原生会话）
+# niri-msg reload
+```
 
 ---
 
-### 8. 总结与资源
+## 关键差异总结
 
-#### 8.1 配置流程总结
-1. 安装 niri 及其依赖。
-2. 创建 Wayland 会话入口。
-3. 配置 `config.toml` 以满足个人需求。
-4. 启动 niri 并验证功能。
-5. 逐步调优布局、键盘绑定和主题。
+### Hyprland vs Niri
 
-#### 8.2 学习资源
-- **官方文档**：[niri 文档](https://github.com/YaLTeR/niri/wiki)。
-- **社区支持**：[Reddit 论坛](https://www.reddit.com/r/wayland/)、[Arch Linux 论坛](https://bbs.archlinux.org/)。
-- **配置示例**：[GitHub 仓库](https://github.com/YaLTeR/niri) 提供的默认配置和社区贡献的配置。
+| 特性 | Hyprland | Niri |
+|------|----------|------|
+| **布局** | 动态平铺 | 滚动平铺 (scrollable) |
+| **工作区** | 固定数量 (1-10) | 无限滚动 |
+| **配置文件** | `.conf` | `.kdl` |
+| **窗口移动** | 直接移动 | 列内移动/挤出 |
+| **焦点跟随鼠标** | 可配置 | 可配置 |
+| **配置文件热重载** | `hyprctl reload` | `niri-msg reload` |
+
+### Quickshell 适配
+
+| 功能 | Hyprland | Niri |
+|------|----------|------|
+| 启动命令 | `qs -c ii` | `qs -c niri` |
+| 工作区模块 | ii/workspace | 需适配 |
+| 应用启动器 | ii/appLauncher | 需适配 |
+| 概览 | ii/overview | 需适配 |
 
 ---
 
-通过以上步骤，您可以在 Arch Linux 中成功配置并使用 niri 作为默认窗口管理器，享受到 Wayland 带来的现代化桌面体验。
+## 资源链接
+
+- **Niri 官方文档**: https://github.com/YaLTeR/niri/wiki
+- **Niri 配置示例**: https://github.com/imiric/quickshell-niri
+- **双系统 Dotfiles**: https://github.com/Vantesh/dotfiles
+- **Niri Dotfiles**: https://github.com/DoubleDotStudios/niri-dotfiles
+
+---
+
+> **迁移建议**: 
+> 1. 先在 winit 窗口模式测试完整配置
+> 2. 确认 Quickshell (niri 配置) 工作正常后再切换
+> 3. 保留 Hyprland 配置以便随时回退

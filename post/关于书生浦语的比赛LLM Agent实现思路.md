@@ -25,7 +25,7 @@ tags:
 >- 书生浦语: 比赛有奖金 任务比较明确 （评分机制也被开源出来了）
 >- 任务比较明确，想在开发机中配置 opencode 使用 vibecoding 自动迭代训练，获取奖金
 >- 关键的效果提升评估：
->	- [ ]  
+>	- [ ]  只能使用 **/share/new_models/InternVL3.5/InternVL3.5-1B**
 
 ## 1. dae 环境配置
 ## 2. 配置 OpenCode  && OHO
