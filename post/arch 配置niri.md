@@ -3,21 +3,20 @@ author: Ryou
 title: arch 配置niri
 date: 2026-02-13T14:45:28+08:00
 lastmod: 2026-02-13T19:10+08:00
-description: 
+description:
 draft: true
 mermaid: true
 image: https://w.wallhaven.cc/full/rq/wallhaven-rqg6m7.jpg
 位置: 上海市 - 上海市
-坐标: 
+坐标:
   - 121.4768
   - 31.2243
-温度: 19.7℃ 
+温度: 19.7℃
 风速: 4.2 m/s
 天气: 主要多云
 categories:
   - 
 tags:
-  - 状态: 已安装，待配置 (2026-02-13)
 ---
 - 我感觉我不想用 hyprland了
 > [!warning] 状态更新
