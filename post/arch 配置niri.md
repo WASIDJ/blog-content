@@ -2,7 +2,7 @@
 author: Ryou
 title: arch 配置niri
 date: 2026-02-13T14:45:28+08:00
-lastmod: 2026-02-13T19:10+08:00
+lastmod: 2026-02-18T21:55:51+08:00
 description:
 draft: true
 mermaid: true
