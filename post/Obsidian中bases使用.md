@@ -399,13 +399,9 @@ filters:
 结合 Templater 插件创建新笔记时自动填充属性：
 
 ```javascript
-<%* 
-const project = tp.file.title;
-const date = tp.date.now("YYYY-MM-DD");
--%>
 ---
-project: <% project %>
-date: <% date %>
+project: openclaw国内配置
+date: 2026-03-02
 status: todo
 ---
 ```
