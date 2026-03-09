@@ -37,10 +37,10 @@ flowchart LR
     end
     
     subgraph MultiRepo["MultiRepo 多仓库"]
-        R1["仓库A\n项目A"]
-        R2["仓库B\n项目B"]
-        R3["仓库C\n项目C"]
-        R4["仓库D\n共享库"]
+        R1["仓库A<br>项目A"]
+        R2["仓库B<br>项目B"]
+        R3["仓库C<br>项目C"]
+        R4["仓库D<br>共享库"]
     end
     
     style MonoRepo fill:#e1f5fe
@@ -67,7 +67,7 @@ flowchart TD
     ROOT["MonoRepo 根目录"] --> APPS["apps/"]
     ROOT --> PACKAGES["packages/"]
     ROOT --> SHARED["shared/"]
-    ROOT --> CONFIG["配置文件\n(package.json, tsconfig等)"]
+    ROOT --> CONFIG["配置文件<br>(package.json, tsconfig等)"]
     
     APPS --> A1["web-app/"]
     APPS --> A2["mobile-app/"]
@@ -87,13 +87,13 @@ flowchart TD
 
 ### 2.2 关键特性
 
-| 特性 | 说明 |
-|---|---|
-| **统一依赖管理** | 所有项目共享依赖版本，避免版本冲突 |
-| **原子提交** | 一次提交可跨多个项目/包进行修改 |
-| **代码共享** | 内部包可直接引用，无需发布到 npm |
-| **统一工具链** | ESLint、TypeScript、测试框架等配置统一 |
-| **可见性** | 所有代码对团队成员透明可见 |
+| 特性         | 说明                          |
+| ---------- | --------------------------- |
+| **统一依赖管理** | 所有项目共享依赖版本，避免版本冲突           |
+| **原子提交**   | 一次提交可跨多个项目/包进行修改            |
+| **代码共享**   | 内部包可直接引用，无需发布到 npm          |
+| **统一工具链**  | ESLint、TypeScript、测试框架等配置统一 |
+| **可见性**    | 所有代码对团队成员透明可见               |
 
 ---
 
@@ -161,10 +161,10 @@ flowchart TB
         end
         
         subgraph 语言特定["语言特定方案"]
-            BAZEL["Bazel\n(Google)"]
-            BUCK["Buck\n(Meta)"]
-            GRADLE["Gradle\n(Android/Java)"]
-            CARGO["Cargo Workspace\n(Rust)"]
+            BAZEL["Bazel<br>(Google)"]
+            BUCK["Buck<br>(Meta)"]
+            GRADLE["Gradle<br>(Android/Java)"]
+            CARGO["Cargo Workspace<br>(Rust)"]
         end
     end
     
