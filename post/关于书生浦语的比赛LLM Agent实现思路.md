@@ -39,3 +39,16 @@ tags:
 
 ### 现在的大致思路
 - [ ] `SSHFS` 或者 直接 copy 数据集 本地数据强化 再上传到  SSH 计算训练
+
+
+佬们中午好，截止有效期到 4 月 5 日的 d.run 沐曦算力券申请下来了，幸苦佬们材料中补交录制一个在 d.run 平台沐曦算力下 RL/SFT 的启动训练视频（1～5min）。
+
+1、微信报名页面的 uid 要在视频中露出  https://colearn.intern-ai.org.cn/c6
+2、Loss 出来后就可以停止录制
+3、 视频贴在飞书文档里面
+
+算力券获取地址：https://aicarrier.feishu.cn/share/base/form/shrcnX11oBVr5YVZYxcbNXbcx8g
+
+成绩符合提交问卷入口：https://aicarrier.feishu.cn/share/base/form/shrcn4qRDPzZPW6rcyihifAQ6Vg
+
+同时我和 @Sabrina💫 在和沐曦章老师  @Kevin Zhang 策划线下 MeetUP 和颁奖仪式的事情，有什么建议欢迎大家反馈   @Mention All
