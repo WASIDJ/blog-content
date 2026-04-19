@@ -68,7 +68,7 @@ flowchart TD
 | 模式 | 技术原理 | TCP支持 | UDP支持 | 资源消耗 | 复杂度 |
 |------|----------|--------|--------|---------|--------|
 | **Redirect** | NAT重定向 | ✅ | ❌ | 低 | 简单 |
-| **TPROXY** | 透明代理模块 | ✅ | ✅ | 中 | 中等 |
+| **TPROXY** | 透明代理模块 | ✅ | ✅ | 中等 | 中等 |
 | **TUN** | 虚拟网卡 | ✅ | ✅ | 高 | 复杂 |
 
 > [!tip] 模式选择建议
@@ -120,7 +120,7 @@ flowchart TD
 
 #### 主流级方案（300-800元）
 
-| 设��� | CPU | 内存 | 网口 | 特点 | 适用场景 |
+| ���备 | CPU | 内存 | 网口 | 特点 | 适用场景 |
 |------|-----|------|------|------|----------|
 | **J4125** | 赛扬4核 | 支持DDR4 | 2.5G×4 | x86性能均衡 | 主力软路由 |
 | **N100准系统** | 英特尔N100 | DDR4/DDR5 | 2.5G×2-4 | 性能接近桌面级 | 高端玩家 |
@@ -154,39 +154,49 @@ flowchart TD
 
 ### 3.1 代理内核对比
 
-| 内核 | 协议支持 | 更新状态 | 性能 | 配置文件难度 | 推荐度 |
-|------|----------|----------|------|--------------|----------|
-| **sing-box** | 最全面 | 活跃 | 高 | 中等 | ⭐⭐⭐⭐⭐ |
-| **Xray** | VLESS/VMess/Trojan | 活跃 | 高 | 简单 | ⭐⭐⭐⭐ |
-| **v2ray-core** | 经典 | 维护中 | 中 | 简单 | ⭐⭐⭐ |
-| **mihomo** | Clash兼容 | 活跃 | 高 | 简单 | ⭐⭐⭐⭐ |
+| 内核 | 协议支持 | 更新状态 | 性能 | 配置文件难度 | 推荐度 | 备注 |
+|------|----------|----------|------|--------------|----------|-------|------|
+| **sing-box** | 最全面 | 活跃 | 高 | 中等 | ⭐⭐⭐⭐⭐ | TUN模式首选 |
+| **Xray** | VLESS/VMess/Trojan | 活跃 | 高 | 简单 | ⭐⭐⭐⭐ | 成熟稳定 |
+| **v2ray-core** | 经典 | 维护中 | 中 | 简单 | ⭐⭐⭐ | 经典选择 |
+| **mihomo** | Clash兼容 | 活跃 | 高 | 简单 | ⭐⭐⭐⭐ | Clash用户友好 |
+| **DAE** | H2/H2+QUIC/Tuic等 | 活跃 | **顶级** | 中等 | ⭐⭐⭐⭐⭐ | **eBPF内核级，性能最强** |
 
 ### 3.2 代理协议支持矩阵
 
-| 协议 | sing-box | Xray | v2ray | 备注 |
-|------|---------|------|-------|------|
-| VLESS | ✅ | ✅ | ✅ | 主流协议 |
-| VMess | ✅ | ✅ | ✅ | 经典协议 |
-| Trojan | ✅ | ✅ | ✅ | 高性能 |
-| Shadowsocks | ✅ | ✅ | ✅ |  |
-| Hysteria2 | ✅ | ❌ | ❌ |  |
-| TUIC | ✅ | ❌ | ❌ |  |
-| WireGuard | ✅ | ✅ | ✅ |  |
-| REALITY | ✅ | ✅ | ❌ | 最强协议 |
+| 协议 | sing-box | Xray | v2ray | DAE | 备注 |
+|------|---------|------|-------|-----|------|
+| VLESS | ✅ | ✅ | ✅ | ❌ | 主流协议 |
+| VMess | ✅ | ✅ | ✅ | ❌ | 经典协议 |
+| Trojan | ✅ | ✅ | ✅ | ❌ | 高性能 |
+| Shadowsocks | ✅ | ✅ | ✅ | ❌ | |
+| Hysteria2 | ✅ | ❌ | ❌ | ✅ | **DAE优势** |
+| TUIC | ✅ | ❌ | ❌ | ✅ | **DAE优势** |
+| WireGuard | ✅ | ✅ | ✅ | ❌ | |
+| REALITY | ✅ | ✅ | ❌ | ❌ | 最强协议 |
+| H2 | ❌ | ❌ | ❌ | ✅ | **DAE独有** |
+| Hysteria | ✅ | ✅ | ✅ | ✅ | |
 
 > [!tip] 协议选择建议
-> - VLESS + Realify是2025-2026年最强组合，兼顾安全与性能
+> - **DAE + Hysteria2/H2** = 2025-2026年性能最强组合（eBPF内核级加速）
+> - VLESS + Reality是兼顾安全与性能的经典选择
 > - Hysteria2/TUIC适合高宽带低延迟场景
+
+> [!warning] DAE特殊要求
+> - 需要内核 >= 5.17 并开启eBPF支持
+> - OpenWRT需使用ImmortalWRT或自行编译（官方固件未开启eBPF）
+> - 性能是传统代理的**3-5倍**（直连几乎无损耗）
 
 ### 3.3 管理界面方案
 
-| 方案 | 内核 | 界面 | 学习成本 | 功能丰富度 |
-|------|------|------|----------|-------------|
-| **v2rayA** | v2ray/Xray | Web UI | 低 | ⭐⭐⭐⭐ |
-| ** Nikki** | Mihomo | LuCI | 中 | ⭐⭐⭐⭐⭐ |
-| **Momo** | sing-box | LuCI | 中 | ⭐⭐⭐⭐⭐ |
-| **PassWall2** | 多内核 | LuCI | 低 | ⭐⭐⭐⭐ |
-| **OpenClash** | Clash | LuCI | 低 | ⭐⭐⭐⭐ |
+| 方案 | 内核 | 界面 | 学习成本 | 功能丰富度 | 备注 |
+|------|------|------|----------|-------------|-------|
+| **v2rayA** | v2ray/Xray | Web UI | 低 | ⭐⭐⭐⭐ | 新手友好 |
+| **Nikki** | Mihomo | LuCI | 中 | ⭐⭐⭐⭐⭐ | 主流方案 |
+| **Momo** | sing-box | LuCI | 中 | ⭐⭐⭐⭐⭐ | 高端方案 |
+| **PassWall2** | 多内核 | LuCI | 低 | ⭐⭐⭐⭐ | 插件齐全 |
+| **OpenClash** | Clash | LuCI | 低 | ⭐⭐⭐⭐ | 使用广泛 |
+| **DAE** | DAE | 配置文件 | 中高 | ⭐⭐⭐⭐⭐ | **性能最强，eBPF内核** |
 
 ## 4. 最佳实践方案
 
@@ -223,13 +233,27 @@ flowchart LR
 - ✅ 仅需简单科学上网
 - ✅ 设备数量＜10台
 
+### 4.1.5 方案一点升级版：N1 + DAE（性能党的选择）
+
+如果觉得N1性能不够，又不想换硬件，可以给N1刷入支持eBPF的ImmortalWRT固件，安装DAE替代传统代理内核：
+
+**配置要点：**
+- 固件：ImmortalWRT（需开启eBPF）
+- 内核：DAE
+- 核心优势：eBPF内核级加速，直连性能**提升3-5倍**
+
+**适合画像：**
+- ✅ 已有N1盒子不想换硬件
+- ✅ 追求极致直连性能
+- ✅ 愿意折腾编译固件
+
 ### 4.2 方案二：主流玩家（ImmortalWRT + Nikki/Momo）
 
 **配置要点：**
 - 通过Firmware Selector定制固件，集成必要组件
 - 选择代理模式：TCP→Redirect, UDP→TUN
 - 配置分流规则：国内直连，国际代理
-- 开启DNS防污���
+- 开启DNS防污染
 
 **硬件推荐：**
 - J4125四网口（约450元）
@@ -241,7 +265,63 @@ flowchart LR
 - ✅ 设备数量多(10-30台)
 - ✅ 有一定技术基础
 
-### 4.3 方案三：高端玩家（N100 + sing-box）
+### 4.2.5 方案二增强：ImmortalWRT + DAE（主流性能方案）
+
+如果想追求极致性能，DAE是比Nikki/Momo更好的选择：
+
+**配置要点：**
+- 固件：ImmortalWRT 24.10（官方固件选择器定制，需开启eBPF）
+- 内核：DAE
+- 必要组件：`dae`, `clang-13`（编译需要）
+- 代理模式：eBPF绑定LAN/WAN接口
+
+**DAE配置文件示例：**
+```dae
+global {
+    lan_interface: eth0
+    wan_interface: auto
+    log_level: info
+    dial_mode: domain++
+}
+
+dns {
+    upstream {
+        alidns: 'udp://223.5.5.5:53'
+        googledns: 'tcp+udp://8.8.8.8:53'
+    }
+    routing {
+        request {
+            qname(geosite:cn) -> alidns
+            fallback: googledns
+        }
+    }
+}
+
+subscription {
+    my机场: 'https://your-subscription-url'
+}
+
+group {
+    proxy {
+        policy: min_moving_avg
+    }
+}
+
+routing {
+    pname(dnsmasq, NetworkManager) -> must_direct
+    dip(geoip:cn) -> direct
+    domain(geosite:cn) -> direct
+    fallback: proxy
+}
+```
+
+**适合画像：**
+- ✅ 预算300-800元
+- ✅ 追求极致直连性能（eBPF内核级）
+- ✅ 愿意学习DAE配置语法
+- ✅ 设备数量多的重度用户
+
+### 4.3 方案三：高端玩家（N100 + Momo/sing-box 或 DAE）
 
 ```mermaid
 flowchart TD
@@ -256,8 +336,8 @@ flowchart TD
     end
     
     subgraph 代理层
-        D --> E[sing-box TUN模式]
-        E --> F[VLESS Realify]
+        D --> E[sing-box TUN模式 / DAE]
+        E --> F[VLESS Reality / Hysteria2]
     end
     
     subgraph 功能层
@@ -272,16 +352,20 @@ flowchart TD
 ```
 
 **配置要点：**
-- 通过OpenWRT官方Firmware Selector定制固件
-- 必要组件：`sing-box`, `luci-app-momo`, `kmod-nft-tproxy`, `mihomo`
-- 开启TPROXY模式支持IPv6
+- 方案A（Momo方案）：`sing-box`, `luci-app-momo`, `kmod-nft-tproxy`
+- 方案B（DAE方案）：`dae`, 需要ImmortalWRT固件，开启eBPF
+- 开启TUN模式或eBPF代理
 - 配置connmark做策略路由
 
 **适合画像：**
 - ✅ 预算充足（800元以上）
 - ✅ 大带宽（千兆+）
 - ✅ 多设备+重度使用
-- ✅ 技术能力强，追求定制化
+- ✅ 技术能力强，追求极致性能
+
+> [!tip] 高端方案选择
+> - 追求综合功能丰富 → Momo（sing-box）
+> - 追求极致直���性��� → DAE（eBPF内核级）
 
 ## 5. 常见问题排查
 
@@ -290,13 +374,13 @@ flowchart TD
 **排查步骤：**
 ```bash
 # 1. 检查内核是否运行
-ps | grep -E 'sing-box|mihomo|v2ray'
+ps | grep -E 'sing-box|mihomo|v2ray|dae'
 
 # 2. 检查防火墙规则
 iptables -t nat -L -n | grep -E 'REDIRECT|TPROXY'
 
 # 3. 检查代理服务日志
-logread | grep -E 'sing-box|mihomo|v2ray' | tail -20
+logread | grep -E 'sing-box|mihomo|v2ray|dae' | tail -20
 
 # 4. 测试直连
 curl -x socks5://127.0.0.1:1080 https://www.google.com
@@ -334,21 +418,25 @@ fw4 restart
 | 你的情况 | 推荐方案 | 预算 | 难度 |
 |---------|----------|------|------|
 | 纯新手，仅体验科学上网 | N1+iStoreOS+v2rayA | 300元 | ⭐ |
-| 普通家庭上网加速 | J4125+ImmortalWRT+ Nikki | 500元 | ⭐⭐ |
-| 大带宽+稳定需求 | N100+ImmortalWRT+ Momo | 800元 | ⭐⭐⭐ |
-| 高端玩家/极客 | N100+自定义+Momo | 1000元+ | ⭐⭐⭐⭐ |
+| 想用DAE提升性能 | N1+ImmortalWRT+DAE | 350元 | ⭐⭐ |
+| 普通家庭上网加速 | J4125+ImmortalWRT+Nikki | 500元 | ⭐⭐ |
+| 追求性能+稳定性 | J4125+ImmortalWRT+DAE | 550元 | ⭐⭐ |
+| 大带宽+稳定需求 | N100+ImmortalWRT+Momo | 800元 | ⭐⭐⭐ |
+| 高端玩家/极客 | N100+ImmortalWRT+DAE | 900元 | ⭐⭐⭐⭐ |
 
 ## 7. 参考链接
 
 1. [OpenWRT官方固件选择器](https://firmware-selector.openwrt.com) — 自定义固件编译
 2. [ImmortalWRT项目](https://github.com/immortalwrt/immortalwrt) — 稳定第三方固件
-3. [Nikki项目](https://github.com/nikkinikki-org/OpenWrt-nikki) — Mihomo管理UI
-4. [Momo项目](https://github.com/nikkinikki-org/OpenWrt-momo) — sing-box管理UI
-5. [v2rayA官方文档](https://v2rayA.github.io) — v2rayA使用指南
-6. [sing-box官方仓库](https://github.com/SagerNet/sing-box) — sing-box核心
+3. [DAE官方仓库](https://github.com/daeuniverse/dae) — eBPF高性能代理
+4. [DAE官方文档](https://github.com/daeuniverse/dae/blob/main/docs/zh/README.md) — 吃鹅直��手册
+5. [Nikki项目](https://github.com/nikkinikki-org/OpenWrt-nikki) — Mihomo管理UI
+6. [Momo项目](https://github.com/nikkinikki-org/OpenWrt-momo) — sing-box管理UI
+7. [v2rayA官方文档](https://v2rayA.github.io) — v2rayA使用指南
+8. [sing-box官方仓库](https://github.com/SagerNet/sing-box) — sing-box核心
 
 ---
 
 > [!note] 更新说明
-> - 2026-04-18：初版创建
+> - 2026-04-18：初版创建，包含DAE方案
 > - 涵盖2025-2026年最新方案
