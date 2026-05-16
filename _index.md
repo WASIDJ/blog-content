@@ -1,8 +1,66 @@
 ---
 menu:
-    main:
-        name: 首页
-        weight: -100
-        params:
-            icon: home
+  main:
+    name: 首页
+    weight: -100
+    params:
+      icon: home
+title: 关于
+date: 2026-05-16
+tags:
+  - 项目
+  - gtd
+type: project
+status: active
+priority: medium
+area:
+deadline:
+progress: 0
+next_action:
+last_reviewed:
+review_cycle_days: 7
 ---
+
+# 关于
+
+> [!important] 项目定义
+> 项目是任何需要==多于一个行动步骤==才能完成的成果，且可在一年内达成。
+
+## 目的 / 为什么
+
+**期望的成果是什么？**
+
+**这件事为什么重要？**
+
+## 成功标准
+
+- [ ] 
+
+## 下一步行动
+
+> [!tip] GTD 原则
+> 下一步行动是这个项目上==最直接的、可见的、物理性的动作==。不要写模糊的条目。
+
+- [ ] 
+
+## 等待中
+
+| 谁在做什么 | 预期日期 | 已收到 |
+| ---------- | -------- | ------ |
+|            |          |        |
+
+## 将来/也许
+
+> [!note] 
+> 与本项目相关但目前还不可行动的想法。
+
+- 
+
+## 项目笔记
+
+
+## 回顾记录
+
+| 日期 | 状态 | 备注 |
+| ---- | ---- | ---- |
+|      |      |      |
