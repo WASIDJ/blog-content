@@ -2,7 +2,7 @@
 author: Ryou
 title: 在国行 HyperOS 上让 Gemini Live 熄屏继续对话
 date: 2026-08-09T21:15:00+08:00
-lastmod: 2026-08-09T21:15:00+08:00
+lastmod: 2026-08-09T21:50:19+08:00
 description: 记录如何通过 ADB 定位 Gemini Live 熄屏后消失的问题，并正确配置通知、锁屏权限与后台白名单。
 draft: false
 mermaid: true
