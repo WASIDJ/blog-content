@@ -5,7 +5,6 @@ menu:
     weight: -100
     params:
       icon: home
-title: 关于
 date: 2026-05-16
 tags:
   - 项目
